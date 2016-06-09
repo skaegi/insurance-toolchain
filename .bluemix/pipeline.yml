@@ -37,6 +37,26 @@ stages:
       sed -ie "s/__TWILIO_ACCOUNT_SID/$TWILIO_ACCOUNT_SID/" manifest.yml
       sed -ie "s/__TWILIO_ACCOUNT_SECRET/$TWILIO_ACCOUNT_SECRET/" manifest.yml
       sed -ie "s/__TWILIO_PHONE_NUMBER/$TWILIO_PHONE_NUMBER/" manifest.yml
+  - name: Unit Tests
+    type: tester
+    extension_id: ibm.devops.services.pipeline.dra_upload_results
+    APPLICATION_NAME: Insurance-UI
+    FORMAT_SELECT: mocha
+    LIFE_CYCLE_STAGE_SELECT: unittest
+    ADDITIONAL_FORMAT_SELECT: istanbul
+    ADDITIONAL_LIFE_CYCLE_STAGE_SELECT: code
+    ADDITIONAL_LOG_FILE: tests/server/coverage/reports/coverage-summary.json
+    LOG_FILE: tests/server/mochatest.json
+    ENVIRONMENT: DEV
+    COMMAND: |
+      #!/bin/bash
+      echo "No tests found."
+  - name: DEV Gate
+    type: tester
+    extension_id: ibm.devops.services.pipeline.dra_devops_gate
+    CRITERIA: Unit Test coverage
+    APPLICATION_NAME: Insurance-UI
+    ENVIRONMENT: DEV
 - name: DEPLOY US SOUTH
   inputs:
   - type: job
