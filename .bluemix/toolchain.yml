@@ -30,6 +30,12 @@ build:
       SPACE_NAME: "{{deploy.parameters.app-space}}"
       ORG_NAME: "{{deploy.parameters.app-organization}}"
       REGION_ID: "{{deploy.parameters.app-region}}"
+      UK_SPACE_NAME: "{{deploy.parameters.uk-space}}"
+      UK_ORG_NAME: "{{deploy.parameters.uk-organization}}"
+      UK_REGION_ID: "{{deploy.parameters.uk-region}}"
+      AUS_SPACE_NAME: "{{deploy.parameters.aus-space}}"
+      AUS_ORG_NAME: "{{deploy.parameters.aus-organization}}"
+      AUS_REGION_ID: "{{deploy.parameters.aus-region}}"
       STRIPE_API_KEY: "{{deploy.parameters.STRIPE_API_KEY}}"
       CREDIT_API_KEY: "{{deploy.parameters.CREDIT_API_KEY}}"
       LEADS_API_KEY: "{{deploy.parameters.LEADS_API_KEY}}"
@@ -60,10 +66,16 @@ deploy:
   schema: deploy.json
   service-category: pipeline
   parameters:
-    app-region: "{{region}}"
+    app-name: "{{repo.parameters.repo_name}}"
+    app-region: "ibm:yp:us-south"
     app-organization: "{{organization}}"
     app-space: "{{space}}"
-    app-name: "{{repo.parameters.repo_name}}"
+    uk-region: "ibm:yp:eu-gb"
+    uk-organization: "{{organization}}"
+    uk-space: "{{space}}"
+    aus-region: "ibm:yp:au-syd"
+    aus-organization: "{{organization}}"
+    aus-space: "{{space}}"
     STRIPE_API_KEY: __STRIPE_API_KEY
     CREDIT_API_KEY: __CREDIT_API_KEY
     LEADS_API_KEY: __LEADS_API_KEY

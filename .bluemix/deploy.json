@@ -13,12 +13,36 @@
             "description": "The bluemix org",
             "type": "string"
         },
-       "app-space": {
+        "app-space": {
             "description": "The bluemix space",
             "type": "string"
         },
-       "app-name": {
+        "app-name": {
             "description": "app name",
+            "type": "string"
+        },
+        "uk-region": {
+            "description": "The bluemix region",
+            "type": "string"
+        },
+        "uk-organization": {
+            "description": "The bluemix org",
+            "type": "string"
+        },
+       "uk-space": {
+            "description": "The bluemix space",
+            "type": "string"
+        },
+        "aus-region": {
+            "description": "The bluemix region",
+            "type": "string"
+        },
+        "aus-organization": {
+            "description": "The bluemix org",
+            "type": "string"
+        },
+       "aus-space": {
+            "description": "The bluemix space",
             "type": "string"
         },
        "STRIPE_API_KEY": {
@@ -46,7 +70,7 @@
             "type": "string"
         }
     },
-    "required": ["app-region", "app-organization", "app-space", "app-name"],
+    "required": ["app-region", "app-organization", "app-space", "uk-region", "uk-organization", "uk-space", "aus-region", "aus-organization", "aus-space", "app-name"],
     "form": [
        {
           "type": "validator",
@@ -111,7 +135,7 @@
                 },
                 {
                   "type": "label",
-                  "title": "Target"
+                  "title": "United States Target"
                 },
                 {
                   "type": "select",
@@ -124,6 +148,42 @@
                 {
                   "type": "select",
                   "key": "app-space",
+                  "readonly": false
+                },
+                {
+                  "type": "label",
+                  "title": "United Kingdom Target"
+                },
+                {
+                  "type": "select",
+                  "key": "uk-region",
+                  "readonly": true
+                },
+                {
+                  "type": "select",
+                  "key": "uk-organization"
+                },
+                {
+                  "type": "select",
+                  "key": "uk-space",
+                  "readonly": false
+                },
+                {
+                  "type": "label",
+                  "title": "Australia Target"
+                },
+                {
+                  "type": "select",
+                  "key": "aus-region",
+                  "readonly": true
+                },
+                {
+                  "type": "select",
+                  "key": "aus-organization"
+                },
+                {
+                  "type": "select",
+                  "key": "aus-space",
                   "readonly": false
                 }
             ]

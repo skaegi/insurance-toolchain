@@ -37,7 +37,7 @@ stages:
       sed -ie "s/__TWILIO_ACCOUNT_SID/$TWILIO_ACCOUNT_SID/" manifest.yml
       sed -ie "s/__TWILIO_ACCOUNT_SECRET/$TWILIO_ACCOUNT_SECRET/" manifest.yml
       sed -ie "s/__TWILIO_PHONE_NUMBER/$TWILIO_PHONE_NUMBER/" manifest.yml
-- name: DEPLOY
+- name: DEPLOY US SOUTH
   inputs:
   - type: job
     stage: BUILD
@@ -55,6 +55,90 @@ stages:
       region_id: ${REGION_ID}
       organization: ${ORG_NAME}
       space: ${SPACE_NAME}
+      application: ${CF_APP_NAME}
+    script: |
+      #!/bin/bash
+      cf create-service cloudantNoSQLDB Shared cloudant
+      # Push app
+      if ! cf app $CF_APP; then  
+        cf push $CF_APP
+      else
+        OLD_CF_APP=${CF_APP}-OLD-$(date +"%s")
+        rollback() {
+          set +e  
+          if cf app $OLD_CF_APP; then
+            cf logs $CF_APP --recent
+            cf delete $CF_APP -f
+            cf rename $OLD_CF_APP $CF_APP
+          fi
+          exit 1
+        }
+        set -e
+        trap rollback ERR
+        cf rename $CF_APP $OLD_CF_APP
+        cf push $CF_APP
+        cf delete $OLD_CF_APP -f
+      fi
+- name: DEPLOY UK
+  inputs:
+  - type: job
+    stage: BUILD
+    job: Build
+  triggers:
+  - type: stage
+  properties:
+  - name: CF_APP_NAME
+    value: undefined
+    type: text
+  jobs:
+  - name: Deploy
+    type: deployer
+    target:
+      region_id: ${UK_REGION_ID}
+      organization: ${UK_ORG_NAME}
+      space: ${UK_SPACE_NAME}
+      application: ${CF_APP_NAME}
+    script: |
+      #!/bin/bash
+      cf create-service cloudantNoSQLDB Shared cloudant
+      # Push app
+      if ! cf app $CF_APP; then  
+        cf push $CF_APP
+      else
+        OLD_CF_APP=${CF_APP}-OLD-$(date +"%s")
+        rollback() {
+          set +e  
+          if cf app $OLD_CF_APP; then
+            cf logs $CF_APP --recent
+            cf delete $CF_APP -f
+            cf rename $OLD_CF_APP $CF_APP
+          fi
+          exit 1
+        }
+        set -e
+        trap rollback ERR
+        cf rename $CF_APP $OLD_CF_APP
+        cf push $CF_APP
+        cf delete $OLD_CF_APP -f
+      fi
+- name: DEPLOY AUS
+  inputs:
+  - type: job
+    stage: BUILD
+    job: Build
+  triggers:
+  - type: stage
+  properties:
+  - name: CF_APP_NAME
+    value: undefined
+    type: text
+  jobs:
+  - name: Deploy
+    type: deployer
+    target:
+      region_id: ${AUS_REGION_ID}
+      organization: ${AUS_ORG_NAME}
+      space: ${AUS_SPACE_NAME}
       application: ${CF_APP_NAME}
     script: |
       #!/bin/bash
