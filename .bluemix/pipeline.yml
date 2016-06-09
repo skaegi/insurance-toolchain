@@ -37,6 +37,9 @@ stages:
       sed -ie "s/__TWILIO_ACCOUNT_SID/$TWILIO_ACCOUNT_SID/" manifest.yml
       sed -ie "s/__TWILIO_ACCOUNT_SECRET/$TWILIO_ACCOUNT_SECRET/" manifest.yml
       sed -ie "s/__TWILIO_PHONE_NUMBER/$TWILIO_PHONE_NUMBER/" manifest.yml
+      rm .cfignore
+      export PATH=/opt/IBM/node-v4.2/bin:$PATH
+      npm install
 - name: DEPLOY
   inputs:
   - type: job
