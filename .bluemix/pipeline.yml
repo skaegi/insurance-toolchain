@@ -37,9 +37,6 @@ stages:
       sed -ie "s/__TWILIO_ACCOUNT_SID/$TWILIO_ACCOUNT_SID/" manifest.yml
       sed -ie "s/__TWILIO_ACCOUNT_SECRET/$TWILIO_ACCOUNT_SECRET/" manifest.yml
       sed -ie "s/__TWILIO_PHONE_NUMBER/$TWILIO_PHONE_NUMBER/" manifest.yml
-      rm .cfignore
-      export PATH=/opt/IBM/node-v4.2/bin:$PATH
-      npm install
 - name: DEPLOY
   inputs:
   - type: job
@@ -63,7 +60,22 @@ stages:
       #!/bin/bash
       cf create-service cloudantNoSQLDB Shared cloudant
       # Push app
-      export CF_APP_NAME="$CF_APP"
-      cf push "${CF_APP_NAME}"
-      # View logs
-      #cf logs "${CF_APP_NAME}" --recent
+      if ! cf app $CF_APP; then  
+        cf push $CF_APP
+      else
+        OLD_CF_APP=${CF_APP}-OLD-$(date +"%s")
+        rollback() {
+          set +e  
+          if cf app $OLD_CF_APP; then
+            cf logs $CF_APP --recent
+            cf delete $CF_APP -f
+            cf rename $OLD_CF_APP $CF_APP
+          fi
+          exit 1
+        }
+        set -e
+        trap rollback ERR
+        cf rename $CF_APP $OLD_CF_APP
+        cf push $CF_APP
+        cf delete $OLD_CF_APP -f
+      fi
