@@ -31,6 +31,12 @@ stages:
     type: builder
     script: |-
       #!/bin/bash
+      sed -ie "s/__STRIPE_API_KEY/$STRIPE_API_KEY/" manifest.yml
+      sed -ie "s/__CREDIT_API_KEY/$CREDIT_API_KEY/" manifest.yml
+      sed -ie "s/__LEADS_API_KEY/$LEADS_API_KEY/" manifest.yml
+      sed -ie "s/__TWILIO_ACCOUNT_SID/$TWILIO_ACCOUNT_SID/" manifest.yml
+      sed -ie "s/__TWILIO_ACCOUNT_SECRET/$TWILIO_ACCOUNT_SECRET/" manifest.yml
+      sed -ie "s/__TWILIO_PHONE_NUMBER/$TWILIO_PHONE_NUMBER/" manifest.yml
       npm install -g npm@3.7.2 ### work around default npm 2.1.1 instability
       npm install
       npm run build
