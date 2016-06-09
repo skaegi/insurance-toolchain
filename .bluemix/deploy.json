@@ -5,24 +5,48 @@
     "longDescription": "The Delivery Pipeline for Devops Services allows you to automate your continuous deployment.",
     "type": "object",
     "properties": {
-        "prod-region": {
+        "region": {
             "description": "The bluemix region",
             "type": "string"
         },
-        "prod-organization": {
+        "organization": {
             "description": "The bluemix org",
             "type": "string"
         },
-       "prod-space": {
+       "space": {
             "description": "The bluemix space",
             "type": "string"
         },
-       "prod-app-name": {
-            "description": "hello world app name",
+       "app-name": {
+            "description": "app name",
+            "type": "string"
+        },
+       "STRIPE_API_KEY": {
+            "description": "STRIPE_API_KEY",
+            "type": "string"
+        },
+       "CREDIT_API_KEY": {
+            "description": "CREDIT_API_KEY",
+            "type": "string"
+        },
+       "LEADS_API_KEY": {
+            "description": "LEADS_API_KEY",
+            "type": "string"
+        },
+       "TWILIO_ACCOUNT_SID": {
+            "description": "TWILIO_ACCOUNT_SID",
+            "type": "string"
+        },
+       "TWILIO_ACCOUNT_SECRET": {
+            "description": "TWILIO_ACCOUNT_SECRET",
+            "type": "string"
+        },
+       "TWILIO_PHONE_NUMBER": {
+            "description": "TWILIO_PHONE_NUMBER",
             "type": "string"
         }
     },
-    "required": ["prod-region", "prod-organization", "prod-space", "prod-app-name"],
+    "required": ["region", "organization", "space", "app-name"],
     "form": [
        {
           "type": "validator",
@@ -32,7 +56,37 @@
           "type": "text",
           "readonly": false,
           "title": "App Name",
-          "key": "prod-app-name"
+          "key": "app-name"
+        },{
+          "type": "text",
+          "readonly": false,
+          "title": "STRIPE_API_KEY",
+          "key": "STRIPE_API_KEY"
+        },{
+          "type": "text",
+          "readonly": false,
+          "title": "CREDIT_API_KEY",
+          "key": "CREDIT_API_KEY"
+        },{
+          "type": "text",
+          "readonly": false,
+          "title": "LEADS_API_KEY",
+          "key": "LEADS_API_KEY"
+        },{
+          "type": "text",
+          "readonly": false,
+          "title": "TWILIO_ACCOUNT_SID",
+          "key": "TWILIO_ACCOUNT_SID"
+        },{
+          "type": "text",
+          "readonly": false,
+          "title": "TWILIO_ACCOUNT_SECRET",
+          "key": "TWILIO_ACCOUNT_SECRET"
+        },{
+          "type": "text",
+          "readonly": false,
+          "title": "TWILIO_PHONE_NUMBER",
+          "key": "TWILIO_PHONE_NUMBER"
         },
         {
             "type": "table",
@@ -57,19 +111,19 @@
                 },
                 {
                   "type": "label",
-                  "title": "Prod Stage"
+                  "title": "Target"
                 },
                 {
                   "type": "select",
-                  "key": "prod-region"
+                  "key": "region"
                 },
                 {
                   "type": "select",
-                  "key": "prod-organization"
+                  "key": "organization"
                 },
                 {
                   "type": "select",
-                  "key": "prod-space",
+                  "key": "space",
                   "readonly": false
                 }
             ]

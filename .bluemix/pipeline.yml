@@ -4,12 +4,36 @@ stages:
   inputs:
   - type: git
     branch: master
-    service: ${SAMPLE_REPO}
+    service: ${REPO}
   triggers:
   - type: commit
+  properties:
+  - name: STRIPE_API_KEY
+    value: ${STRIPE_API_KEY}
+    type: text
+  - name: CREDIT_API_KEY
+    value: ${CREDIT_API_KEY}
+    type: text
+  - name: LEADS_API_KEY
+    value: ${LEADS_API_KEY}
+    type: text
+  - name: TWILIO_ACCOUNT_SID
+    value: ${TWILIO_ACCOUNT_SID}
+    type: text
+  - name: TWILIO_ACCOUNT_SECRET
+    value: ${TWILIO_ACCOUNT_SECRET}
+    type: text
+  - name: TWILIO_PHONE_NUMBER
+    value: ${TWILIO_PHONE_NUMBER}
+    type: text
   jobs:
   - name: Build
     type: builder
+    script: |-
+      #!/bin/bash
+      npm install -g npm@3.7.2 ### work around default npm 2.1.1 instability
+      npm install
+      npm run build
 - name: DEPLOY
   inputs:
   - type: job
@@ -21,22 +45,19 @@ stages:
   - name: CF_APP_NAME
     value: undefined
     type: text
-  - name: APP_URL
-    value: undefined
-    type: text
   jobs:
   - name: Deploy
     type: deployer
     target:
-      region_id: ${PROD_REGION_ID}
-      organization: ${PROD_ORG_NAME}
-      space: ${PROD_SPACE_NAME}
+      region_id: ${REGION_ID}
+      organization: ${ORG_NAME}
+      space: ${SPACE_NAME}
       application: ${CF_APP_NAME}
     script: |
       #!/bin/bash
+      cf create-service cloudantNoSQLDB Shared cloudant
       # Push app
       export CF_APP_NAME="$CF_APP"
       cf push "${CF_APP_NAME}"
-      export APP_URL=http://$(cf app $CF_APP_NAME | grep urls: | awk '{print $2}')
       # View logs
       #cf logs "${CF_APP_NAME}" --recent
