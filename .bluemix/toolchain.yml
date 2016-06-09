@@ -27,9 +27,9 @@ build:
      env:
       REPO: "repo"
       CF_APP_NAME: "{{deploy.parameters.app-name}}"
-      SPACE_NAME: "{{deploy.parameters.space}}"
-      ORG_NAME: "{{deploy.parameters.organization}}"
-      REGION_ID: "{{deploy.parameters.region}}"
+      SPACE_NAME: "{{deploy.parameters.app-space}}"
+      ORG_NAME: "{{deploy.parameters.app-organization}}"
+      REGION_ID: "{{deploy.parameters.app-region}}"
       STRIPE_API_KEY: "{{deploy.parameters.STRIPE_API_KEY}}"
       CREDIT_API_KEY: "{{deploy.parameters.CREDIT_API_KEY}}"
       LEADS_API_KEY: "{{deploy.parameters.LEADS_API_KEY}}"
@@ -50,9 +50,9 @@ deploy:
   schema: deploy.json
   service-category: pipeline
   parameters:
-    region: "{{region}}"
-    organization: "{{organization}}"
-    space: "{{space}}"
+    app-region: "{{region}}"
+    app-organization: "{{organization}}"
+    app-space: "{{space}}"
     app-name: "{{repo.parameters.repo_name}}"
     STRIPE_API_KEY: __STRIPE_API_KEY
     CREDIT_API_KEY: __CREDIT_API_KEY

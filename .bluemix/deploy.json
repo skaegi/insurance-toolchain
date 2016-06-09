@@ -5,15 +5,15 @@
     "longDescription": "The Delivery Pipeline for Devops Services allows you to automate your continuous deployment.",
     "type": "object",
     "properties": {
-        "region": {
+        "app-region": {
             "description": "The bluemix region",
             "type": "string"
         },
-        "organization": {
+        "app-organization": {
             "description": "The bluemix org",
             "type": "string"
         },
-       "space": {
+       "app-space": {
             "description": "The bluemix space",
             "type": "string"
         },
@@ -46,7 +46,7 @@
             "type": "string"
         }
     },
-    "required": ["region", "organization", "space", "app-name"],
+    "required": ["app-region", "app-organization", "app-space", "app-name"],
     "form": [
        {
           "type": "validator",
@@ -115,15 +115,15 @@
                 },
                 {
                   "type": "select",
-                  "key": "region"
+                  "key": "app-region"
                 },
                 {
                   "type": "select",
-                  "key": "organization"
+                  "key": "app-organization"
                 },
                 {
                   "type": "select",
-                  "key": "space",
+                  "key": "app-space",
                   "readonly": false
                 }
             ]
