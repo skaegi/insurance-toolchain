@@ -55,6 +55,7 @@ stages:
     ENVIRONMENT: DEV
     COMMAND: |
       #!/bin/bash
+      npm install
       npm test -- -R json > test/mochatest.json
   - name: DEV Gate
     type: tester
