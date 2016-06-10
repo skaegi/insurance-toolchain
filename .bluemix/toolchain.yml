@@ -41,7 +41,9 @@ build:
       LEADS_API_KEY: "{{deploy.parameters.LEADS_API_KEY}}"
       TWILIO_ACCOUNT_SID: "{{deploy.parameters.TWILIO_ACCOUNT_SID}}"
       TWILIO_ACCOUNT_SECRET: "{{deploy.parameters.TWILIO_ACCOUNT_SECRET}}"
-      TWILIO_PHONE_NUMBER: "{{deploy.parameters.TWILIO_PHONE_NUMBER}}"     
+      TWILIO_PHONE_NUMBER: "{{deploy.parameters.TWILIO_PHONE_NUMBER}}"
+      BPM_USERNAME: "{{deploy.parameters.BPM_USERNAME}}"
+      BPM_PASSWORD: "{{deploy.parameters.BPM_PASSWORD}}"  
      execute: true
     services: ["repo"]
   hidden: [form, description]
@@ -82,3 +84,5 @@ deploy:
     TWILIO_ACCOUNT_SID: __TWILIO_ACCOUNT_SID
     TWILIO_ACCOUNT_SECRET: __TWILIO_ACCOUNT_SECRET
     TWILIO_PHONE_NUMBER: __TWILIO_PHONE_NUMBER
+    BPM_USERNAME: __BPM_USERNAME
+    BPM_PASSWORD: __BPM_PASSWORD

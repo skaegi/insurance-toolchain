@@ -68,6 +68,14 @@
        "TWILIO_PHONE_NUMBER": {
             "description": "TWILIO_PHONE_NUMBER",
             "type": "string"
+        },
+       "BPM_USERNAME": {
+            "description": "BPM_USERNAME",
+            "type": "string"
+        },
+       "BPM_PASSWORD": {
+            "description": "BPM_PASSWORD",
+            "type": "string"
         }
     },
     "required": ["app-region", "app-organization", "app-space", "uk-region", "uk-organization", "uk-space", "aus-region", "aus-organization", "aus-space", "app-name"],
@@ -111,6 +119,16 @@
           "readonly": false,
           "title": "TWILIO_PHONE_NUMBER",
           "key": "TWILIO_PHONE_NUMBER"
+        },{
+          "type": "text",
+          "readonly": false,
+          "title": "BPM_USERNAME",
+          "key": "BPM_USERNAME"
+        },{
+          "type": "text",
+          "readonly": false,
+          "title": "BPM_PASSWORD",
+          "key": "BPM_PASSWORD"
         },
         {
             "type": "table",
