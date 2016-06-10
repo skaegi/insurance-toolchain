@@ -45,6 +45,23 @@ stages:
       sed -ie "s/__TWILIO_PHONE_NUMBER/$TWILIO_PHONE_NUMBER/" manifest.yml
       sed -ie "s/__BPM_USERNAME/$BPM_USERNAME/" manifest.yml
       sed -ie "s/__BPM_PASSWORD/$BPM_PASSWORD/" manifest.yml
+  - name: Unit Tests
+    type: tester
+    extension_id: ibm.devops.services.pipeline.dra_upload_results
+    APPLICATION_NAME: Insurance-UI
+    FORMAT_SELECT: mocha
+    LIFE_CYCLE_STAGE_SELECT: unittest
+    LOG_FILE: test/mochatest.json
+    ENVIRONMENT: DEV
+    COMMAND: |
+      #!/bin/bash
+      npm test -- -R json > test/mochatest.json
+  - name: DEV Gate
+    type: tester
+    extension_id: ibm.devops.services.pipeline.dra_devops_gate
+    CRITERIA: Unit Test coverage
+    APPLICATION_NAME: Insurance-UI
+    ENVIRONMENT: DEV
 - name: DEPLOY US SOUTH
   inputs:
   - type: job
