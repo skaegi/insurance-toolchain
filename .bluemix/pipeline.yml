@@ -45,6 +45,10 @@ stages:
       sed -ie "s/__TWILIO_PHONE_NUMBER/$TWILIO_PHONE_NUMBER/" manifest.yml
       sed -ie "s/__BPM_USERNAME/$BPM_USERNAME/" manifest.yml
       sed -ie "s/__BPM_PASSWORD/$BPM_PASSWORD/" manifest.yml
+      export PATH=/opt/IBM/node-v4.2/bin:$PATH
+      npm install -g npm@3.x
+      export PATH=$(npm bin -g):$PATH
+      npm install
   - name: Unit Tests
     type: tester
     extension_id: ibm.devops.services.pipeline.dra_upload_results
@@ -55,7 +59,6 @@ stages:
     ENVIRONMENT: DEV
     COMMAND: |
       #!/bin/bash
-      npm install
       npm test -- -R json > test/mochatest.json
   - name: DEV Gate
     type: tester
