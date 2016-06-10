@@ -12,7 +12,7 @@ repo:
   service_id: githubpublic
   parameters:
     repo_name: "{{name}}"
-    repo_url: https://github.com/harborinsurance/insurance-ui
+    repo_url: https://github.com/skaegi/insurance-ui
     type: clone
     has_issues: true
 
